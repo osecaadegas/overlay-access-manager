@@ -2,11 +2,9 @@
 
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-
-const prisma = new PrismaClient()
+import prisma from '@/lib/prisma'
 
 export async function loginAction(prevState: any, formData: FormData) {
   const email = formData.get('email') as string
