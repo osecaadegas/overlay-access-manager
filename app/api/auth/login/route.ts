@@ -67,8 +67,11 @@ export async function POST(request: Request) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 // 7 days
+      maxAge: 7 * 24 * 60 * 60, // 7 days
+      path: '/'
     })
+
+    console.log('Login successful for:', user.email, 'Role:', user.role, 'Token set')
 
     return response
   } catch (error) {

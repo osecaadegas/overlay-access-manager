@@ -32,9 +32,15 @@ export default function LoginPage() {
         return
       }
 
+      console.log('Login successful, redirecting to:', data.user.role === 'ADMIN' ? '/admin' : '/dashboard')
+
       // Force a hard redirect
       const redirectUrl = data.user.role === 'ADMIN' ? '/admin' : '/dashboard'
-      window.location.replace(redirectUrl)
+      
+      // Give the cookie time to be set
+      setTimeout(() => {
+        window.location.replace(redirectUrl)
+      }, 100)
     } catch (err) {
       setError('An error occurred. Please try again.')
       setLoading(false)
