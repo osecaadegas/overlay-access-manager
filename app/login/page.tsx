@@ -34,15 +34,11 @@ export default function LoginPage() {
 
       console.log('Login successful, user:', data.user)
 
-      // Use Next.js router for navigation after successful login
-      if (data.user.role === 'ADMIN') {
-        router.push('/admin')
-        router.refresh()
-      } else {
-        router.push('/dashboard')
-        router.refresh()
-      }
+      // Redirect using window.location for a full page reload
+      const redirectPath = data.user.role === 'ADMIN' ? '/admin' : '/dashboard'
+      window.location.href = redirectPath
     } catch (err) {
+      console.error('Login error:', err)
       setError('An error occurred. Please try again.')
       setLoading(false)
     }
