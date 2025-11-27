@@ -1,14 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { redirectAfterLogin } from './actions'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,12 +31,8 @@ export default function LoginPage() {
         return
       }
 
-      // Redirect based on role using window.location for immediate redirect
-      if (data.user.role === 'ADMIN') {
-        window.location.href = '/admin'
-      } else {
-        window.location.href = '/dashboard'
-      }
+      // Use server action for redirect
+      await redirectAfterLogin(data.user.role)
     } catch (err) {
       setError('An error occurred. Please try again.')
       setLoading(false)
