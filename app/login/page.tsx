@@ -32,15 +32,16 @@ export default function LoginPage() {
         return
       }
 
-      console.log('Login successful, redirecting to:', data.user.role === 'ADMIN' ? '/admin' : '/dashboard')
+      console.log('Login successful, user:', data.user)
 
-      // Force a hard redirect
-      const redirectUrl = data.user.role === 'ADMIN' ? '/admin' : '/dashboard'
-      
-      // Give the cookie time to be set
-      setTimeout(() => {
-        window.location.replace(redirectUrl)
-      }, 100)
+      // Use Next.js router for navigation after successful login
+      if (data.user.role === 'ADMIN') {
+        router.push('/admin')
+        router.refresh()
+      } else {
+        router.push('/dashboard')
+        router.refresh()
+      }
     } catch (err) {
       setError('An error occurred. Please try again.')
       setLoading(false)
