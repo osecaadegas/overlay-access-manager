@@ -32,11 +32,11 @@ export default function LoginPage() {
         return
       }
 
-      // Redirect based on role
+      // Redirect based on role using window.location for immediate redirect
       if (data.user.role === 'ADMIN') {
-        router.push('/admin')
+        window.location.href = '/admin'
       } else {
-        router.push('/dashboard')
+        window.location.href = '/dashboard'
       }
     } catch (err) {
       setError('An error occurred. Please try again.')
